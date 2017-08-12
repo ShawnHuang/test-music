@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Music Test</title>
+		<link rel="stylesheet" href="abcjs-midi.css">
+		<script src="abcjs_editor_midi_3.1.1-min.js" type="text/javascript"></script>
+		<style>
+				.abcjs-inline-midi {
+				max-width: 400px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Music Test - abcjs demo</h1>
+		<p><a href="index.html">home</a> | <a href="editor.html">editor</a> | created using <a href="https://github.com/paulrosen/abcjs" >abcjs</a>.</p>
+        <hr>
+        <h2>Editor demo</h2>
+		<textarea name="abc" id="abc" cols="80" rows="15">X: 1
+T: Cooley's
+M: 4/4
+L: 1/8
+R: reel
+K: Emin
+|:D2|EB{c}BA B2 EB|~B2 AB dBAG|FDAD BDAD|FDAD dAFD|
+EBBA B2 EB|B2 AB defg|afe^c dBAF|DEFD E2:|
+|:gf|eB B2 efge|eB B2 gedB|A2 FA DAFA|A2 FA defg|
+eB B2 eBgB|eB B2 defg|afe^c dBAF|DEFD E2:|
+		</textarea>
+		
+		<hr />
+		<div id="midi"></div>
+		<div id="midi-download"></div>
+		<div id="warnings"></div>
+		<div id="music"></div>
+		<div id="paper0"></div>
+		<div id="paper1"></div>
+		<div id="paper2"></div>
+		<div id="paper3"></div>
+		<div id="selection"></div>
+        
+        <hr>
+
+		<script type="text/javascript">
+			function selectionCallback(abcelem) {
+				var note = {};
+				for (var key in abcelem) {
+					if (abcelem.hasOwnProperty(key) && key !== "abselem")
+						note[key] = abcelem[key];
+				}
+				console.log(abcelem);
+				var el = document.getElementById("selection");
+				el.innerHTML = "<b>selectionCallback parameter:</b><br>" + JSON.stringify(note);
+			}
+		
+			function initEditor() {
+				new ABCJS.Editor("abc", { paper_id: "paper0",
+					generate_midi: true,
+					midi_id:"midi",
+					midi_download_id: "midi-download",
+					generate_warnings: true,
+					warnings_id:"warnings",
+					midi_options: {
+						generateDownload: true
+					},
+					render_options: {
+						listener: { highlight: selectionCallback }
+					}
+				});
+			}
+		
+			window.addEventListener("load", initEditor, false);
+		</script>
+	</body>
+</html>
