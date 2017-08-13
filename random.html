@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Music Test</title>
+		<link rel="stylesheet" href="abcjs-midi.css">
+		<script src="abcjs_editor_midi_3.1.2-min.js" type="text/javascript"></script>
+		<style>
+			.abcjs-inline-midi {
+				max-width: 400px;
+			}
+            .buttons {
+                cursor: pointer;
+                background-color: #e1e6ea;
+                border: solid 1px #212529;
+                border-radius: 2px;
+                font-size: 20px;
+                margin-top: 5px;
+            }
+            pre {
+                border: solid grey 1px;
+                border-radius: 3px;
+                background-color: #cdcdcd;
+                padding: 5px;
+            }
+		</style>
+	</head>
+	<body>
+		<h1>Music Test - abcjs demo</h1>
+		<p><a href="index.html">home</a> | <a href="editor.html">editor</a> | <a href="random.html">random reel</a>.</p>
+		<hr>
+        <h2>Random Reel</h2>
+        
+        <p>Get a <button id="new" class="buttons">Brand New Reel!</button></p>
+
+		<div id="notation"></div>
+        <div id="play"></div>
+        <div id="abc-file"></div>
+
+        <hr>
+		<p>created using <a href="https://github.com/paulrosen/abcjs" >abcjs</a>.</p>
+
+        <script src="data/reels-data.js"></script>
+        
+        <script type="text/javascript">
+        // set soundfonts location
+        window.ABCJS.midi.soundfontUrl = "soundfont/";
+        var abc = [];
+        var notesArray = [];
+        var titleArray = [];
+        /* Fisher-Yates shuffle https://bost.ocks.org/mike/shuffle/ */
+        function shuffle(array) {
+            var m = array.length, t, i;
+            while (m) {
+                i = Math.floor(Math.random() * m--);
+                t = array[m];
+                array[m] = array[i];
+                array[i] = t;
+            }
+            return array;
+        }
+        function mixData() {
+            notesArray = notes.split("|");
+            titleArray = titles.split(" ");
+            shuffle(notesArray);
+            shuffle(titleArray);
+        }
+        function createAbc() {
+            var i;
+            abc = ["X: 1"];
+            // shuffle data
+            if (notesArray.length == 0 || titleArray.length == 0) {
+                mixData();
+            }
+            // create title
+            var t = Math.floor(Math.random() * 5) + 1;
+            var title = ["T:"];
+            for (i = 0; i < t; i++) {
+                title.push(titleArray.pop());
+            }
+            abc.push(title.join(" "));
+            // create source
+            abc.push("S: Random Reel, https://evanwill.github.io/test-music/")
+            // create meter
+            var m = Math.floor(Math.random() * meter.length);
+            abc.push(meter[m]);
+            // create length
+            abc.push(leng);
+            // create key
+            var k = Math.floor(Math.random() * key.length);
+            abc.push(key[k]);
+            // create notes
+            var bars = (Math.floor(Math.random() * 2) + 4);
+            var z;
+            for (i=0; i < 4; i++) {
+                var tune = [];
+                for (z = 0; z < bars; z++) {
+                    tune.push(notesArray.pop());
+                }
+                tune.push("");
+                abc.push(tune.join("|"));
+            }
+            abc[abc.length-1] = abc[abc.length-1] + "|";
+            ABCJS.renderAbc('notation', abc.join("\n"));
+            ABCJS.renderMidi('play', abc.join("\n"));
+            document.getElementById("abc-file").innerHTML = "<p>ABC notation:</p> <pre>" + abc.join("\n") + "</pre>";
+        }
+        document.getElementById("new").onclick = function () { createAbc(); };
+
+		</script>
+	</body>
+</html>
