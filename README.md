@@ -17,7 +17,7 @@ Basic ABC notation template:
 X:1 [reference #, can be any number]
 T:Paddy O'Rafferty [title]
 C:Trad. [composer]
-M:6/8 [meter]
+M:6/8 [meter, *required]
 L:1/4 [base note length, can be in header or in tune]
 K:D [key, required, always last header field, always followed by the notes of the tune]
 dff cee|def gfe|dff cee|dfe dBA|dff cee|def gfe|faf gfe|1 dfe dBA:|2 dfe dcB|]

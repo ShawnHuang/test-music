@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Music Test</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="abcjs-midi.css">
+		<script src="abcjs_basic_midi_3.1.2-min.js" type="text/javascript"></script>
+		<style>
+			.abcjs-inline-midi {
+				max-width: 400px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Music Test - abcjs embed demo</h1>
+		<p><a href="index.html">home</a> | <a href="editor.html">editor</a> | <a href="random.html">random reel</a> | <a href="test.html">demo embed</a>.</p>
+		<hr>
+        <h2>ABC intro</h2>
+        <p>Basic <a href="http://abcnotation.com/">ABC notation</a> template:</p>
+
+<pre>
+X:1 [reference #, can be any number]
+T:Paddy O'Rafferty [title]
+C:Trad. [composer]
+M:6/8 [meter, *required]
+L:1/4 [base note length, can be in header or in tune]
+K:D [key, *required, always last header field, always followed by the notes of the tune]
+dff cee|def gfe|dff cee|dfe dBA|dff cee|def gfe|faf gfe|1 dfe dBA:|2 dfe dcB|]
+~A3 B3|gfe fdB|AFA B2c|dfe dcB|~A3 ~B3|efe efg|faf gfe|1 dfe dcB:|2 dfe dBA|]
+fAA eAA|def gfe|fAA eAA|dfe dBA|fAA eAA|def gfe|faf gfe|dfe dBA:|
+</pre>
+
+        <p>Notes:</p>
+        <ul>
+            <li>`CDEFGAB` = bottom octave, `C` = middle C, (with no spaces notes will have beams)</li>
+            <li>`cdefgab` = top octave </li>
+            <li>`,` = down an octave, `'` = up an octave</li>
+            <li>a number after the note = the length * the base length</li>
+            <li>`|` = bar line; `|]` double bar; `|:` repeat `:|`</li>
+            <li>`~` = ornament, roll; `{c}`</li>
+        </ul>
+
+        <p>Example, four octaves:</p>
+
+<pre>
+X:1
+T:Notes
+M:C
+L:1/4
+K:C
+C, D, E, F,|G, A, B, C|D E F G|A B c d|e f g a|b c' d' e'|f' g' a' b'|]
+</pre>
+
+<hr>
+<p>created using <a href="https://github.com/paulrosen/abcjs" >abcjs</a>.</p>
+</body>
+</html>
